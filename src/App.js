@@ -3,27 +3,44 @@ import './App.css';
 import {useState} from "react";
 
 function App() {
-    const [email, setEmail] = useState('fracz@agh.edu.pl');
+    const [email, setEmail] = useState('');
+    const [loggedInAs, setLoggedInAs] = useState(null);
 
     function handleChange(event) {
         setEmail(event.target.value);
     }
 
-    let message;
-    if (email.length < 5) {
-        message = 'Twój email jest za krótki!';
-    } else if (email.length < 15) {
-        message = 'Twój adres e-mail jest w sam raz.';
-    } else {
-        message = 'Twój adres e-mail jest stanowczo za długi.';
+    function changeStatus() {
+        if (loggedInAs){
+            setLoggedInAs(null);
+            setEmail('');
+        }
+        else {
+            setLoggedInAs(email)
+        }
+    }
+
+    let content;
+    if (loggedInAs) {
+        content = <div>
+            <h2>Witaj {loggedInAs}</h2>
+            <a onClick={changeStatus}> Wyloguj</a>
+        </div>
+    }
+    else {
+        content = <div>Zaloguj się e-mailem
+            <input type="text" value={email} onChange={handleChange}/>
+            <button type="button" onClick={() => setLoggedInAs(email)}>
+                Wchodzę
+            </button>
+        </div>
     }
 
     return (
+
         <div>
-            <h1>System do zapisów na zajęcia</h1>
-            <div>{message}</div>
-            <h2>Twój e-mail to {email}</h2>
-            <input type="text" value={email} onChange={handleChange}/>
+            <h1>Witaj w systemie do zapisów na zajęcia</h1>
+            {content}
         </div>
     );
 }
