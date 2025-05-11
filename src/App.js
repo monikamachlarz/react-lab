@@ -4,6 +4,7 @@ import {useState} from "react";
 import "milligram";
 import {LoginForm} from "./LoginForm";
 import {UserPanel} from "./UserPanel";
+import NewMeetingForm from "./meetings/NewMeetingForm";
 
 function App() {
 
